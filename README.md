@@ -5,15 +5,8 @@
 <h3>Field Names</h3>
 <table style="width: 100%;">
 <tbody>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
+<tr><td>Key</td><td>Type</td><td>Example</td></tr>
+  
+<tr><td>Location</td><td>objectid</td><td>1334734</td></tr>
 </tbody>
 </table>
