@@ -8,9 +8,9 @@
 <h4>Field Names</h4>
 <table style="width: 100%;">
 <tbody>
-  <tr><td>Key</td><td>Value</td><td>description</td></tr>
+  <tr><td>Key</td><td>Type></td><td>Example Value</td><td>description</td></tr>
   
-<tr><td>objectid</td><td>1334734</td><td>locationId</td></tr>
+<tr><td>objectid</td><td>number</td><td>1334734</td><td>locationId</td></tr>
 <tr><td>applicant</td><td>Rita's Catering</td><td>Name of Business/Applicant</td></tr>
 <tr><td>facilitytype</td><td>Truck</td><td>Type of Facility</td></tr>
 <tr><td>cnn</td><td>1334734</td><td></td></tr>
