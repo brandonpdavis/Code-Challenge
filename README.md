@@ -6,7 +6,7 @@
 <table border="1">
 <tbody>
 <tr>
-  <td>Key</td>
+  <td style="width:33%">Key</td>
   <td>Type</td>
   <td>Example</td>
   </tr>
