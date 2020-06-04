@@ -15,6 +15,6 @@
 <tr><td>facilitytype</td><td>Truck</td><td>Type of Facility</td></tr>
 <tr><td>cnn</td><td>1334734</td><td></td></tr>
 <tr><td>locationdescription</td><td>MISSION ST: 06TH ST to 07TH ST (1000 - 1099)</td><td>Location(s) where to find the truck</td></tr>
-<tr><td>address</td><td>1334734</td>1028 MISSION ST<td></td></tr>
+<tr><td>address</td><td>1334734</td><td>1028 MISSION ST</td></tr>
 </tbody>
 </table>
