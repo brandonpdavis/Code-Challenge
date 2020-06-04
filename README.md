@@ -3,7 +3,7 @@
 <h2> API Documentation </h2>
 <b>Endpoint: </b> https://data.sfgov.org/resource/rqzj-sfat.json
 <h3>Field Names</h3>
-<table style="width: 50%;" border="1">
+<table border="1">
 <tbody>
 <tr>
   <td>Key</td>
