@@ -3,18 +3,8 @@
 <h2> API Documentation </h2>
 <b>Endpoint: </b> https://data.sfgov.org/resource/rqzj-sfat.json
 <h3>Field Names</h3>
-<table border="1">
-<tbody>
-<tr>
-  <td style="width:33%">Key</td>
-  <td>Type</td>
-  <td>Example</td>
-  </tr>
-<tr>
-<td>locationid</td>
-<td>objectid</td>
-  <td></td>
-</tr>
-</tbody>
-</table>
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
 
