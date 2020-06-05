@@ -1,5 +1,8 @@
+<h1>San Fran Food Finder</h1>
+This starter app leverages Azure Maps and data from the city and county of San Francisco. It is a quick set up and you can get a working app up and running leveraging the free tier from Azure. 
+
 ## Getting Started 
-This is a sample project that allows end users to search for food trucks in a given area.
+This is a sample project that allows end users to search for food trucks in a given area. This is a basic app that can be built off on. Currently it leverages extenal services, but is set up to where you can set up local data, set proxy end points, etc.
 
 ## SFData and API Key Setup
 These steps are necessary to get started regardless of local setup
@@ -89,7 +92,7 @@ http://localhost:3306/
 
 ## API Documentation 
 
-# Quick Reference Guide<
+# Quick Reference Guide
 (For more information on the SFData endpoint you can go to the detailed documentation<a target="_blank" href="https://dev.socrata.com/foundry/data.sfgov.org/rqzj-sfat">here</a></br>
 
 <b>Endpoint: </b> https://data.sfgov.org/resource/rqzj-sfat.json
