@@ -329,7 +329,7 @@
                     // Suggest URL
                     //where=fooditems%20like%20%27%25hot%20dog%25%27
                     //where=fooditems like `%25ITEM GOES HERE%25`
-                    var suggestURL = "/maps/#LOCATION";
+                    var suggestURL = "/maps/ws/#LOCATION";
                     suggestURL = suggestURL.replace('#LOCATION', request.term);
                     // JSONP Request
                     $.ajax({
@@ -484,7 +484,7 @@
                     // Suggest URL
                     //where=fooditems%20like%20%27%25hot%20dog%25%27
                     //where=fooditems like `%25ITEM GOES HERE%25`
-                    var suggestURL = "/maps/#LOCATION";
+                    var suggestURL = "/maps/ws/#LOCATION";
                     suggestURL = suggestURL.replace('#LOCATION', request.term);
                     // JSONP Request
                     $.ajax({
