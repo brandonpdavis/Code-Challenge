@@ -17,7 +17,7 @@ These steps are necessary to get started regardless of local setup
 
 Node.js and npm can be installed from a download link. Go to the <a href="https://nodejs.org/en/download/" target="_blank">Node installation page</a>, and download the Node installer.
 Once it's done, you can test to see both node and npm functioning by opening PowerShell (or any shell) and typing:
-```sh
+```
 node -v
 npm -v
 ```
