@@ -1,7 +1,7 @@
 ## Getting Started 
 This is a sample project that allows end users to search for food trucks in a given area.
 
-## Global Dependencies and Setup
+## SFData and API Key Setup
 These steps are necessary to get started regardless of local setup
 
 - Create an account or login to [DataSF](https://data.sfgov.org/login)
@@ -10,6 +10,26 @@ These steps are necessary to get started regardless of local setup
 - Copy your Key ID and update the `DataSFKey` variable in the .env file
 - Copy your Key Secret and update the `DataSFSecret` variable in the .env file
 - In your .env file set the `PORT` variable to `3306` (You can set it to whatever port, but this port number useful for future use of mySQL)
+
+# Azure Map Setup
+- In the upper left-hand corner of the Azure portal, click Create a resource.
+- In the Search the Marketplace box, type Maps.
+- From the Results, select Maps. Click Create button that appears below the map.
+- On the Create Maps Account page, enter the following values:
+- The Subscription that you want to use for this account.
+- The Resource group name for this account. You may choose to Create new or Use existing resource group.
+- The Name of your new account.
+- The Pricing tier for this account.
+- Read the License and Privacy Statement, and check the checkbox to accept the terms.
+- Click the Create button.
+
+Once your Maps account is successfully created, retrieve the primary key that enables you to query the Maps APIs.
+
+- Open your Maps account in the portal.
+- In the settings section, select Authentication.
+- Copy the Primary Key to your clipboard. Save it locally or to your .env file.
+
+
 
 ## Setup Local Environment (Windows)
 ## Dependencies
@@ -46,7 +66,7 @@ Verify node installed and check the version, type the following command:
 node -v
 npm -v
 ```
-<h4>Clone repo and start your local environment<h4>
+# Clone repo and start your local environment 
 Clone this repository into a new folder on your local machine, then:
 
 ```
@@ -57,22 +77,21 @@ npm init
 npm install
 ```
 
-Terminal 1 Run - `npm start`
-
-(if nodemon is not installed, run this to install it): `npm install -g nodemon`
+If nodemon is not installed, run this to install it): `npm install -g nodemon`
 
 ```
-nodemon app.js
+npm start
 ```
 
 Now you should be able to load the app via:
 http://localhost:3306/
 
 
-<h2> API Documentation </h2>
+## API Documentation 
 
-<h3>Quick Reference Guide</h3>
-<a target="_blank" href="https://dev.socrata.com/foundry/data.sfgov.org/rqzj-sfat">Detailed Documentation</a>
+# Quick Reference Guide<
+(For more information on the SFData endpoint you can go to the detailed documentation<a target="_blank" href="https://dev.socrata.com/foundry/data.sfgov.org/rqzj-sfat">here</a></br>
+
 <b>Endpoint: </b> https://data.sfgov.org/resource/rqzj-sfat.json
 <h4>Field Names</h4>
 <table style="width: 100%;">
@@ -128,56 +147,57 @@ http://localhost:3306/
   <tr>
     <td>block</td>
     <td>text</td>
-    <td>??</td>
-    <td>??</td>
+    <td>3703</td>
+    <td>The block value of the block lot or parcel</td>
   </tr>
   <tr>
     <td>lot</td>
     <td>text</td>
-    <td>??</td>
-    <td>??</td>
+    <td>033</td>
+    <td>The lot number from the blocklot</td>
   </tr>
   <tr>
     <td>permit</td>
     <td>text</td>
-    <td>??</td>
-    <td>??</td>
+    <td>19MFF-00047</td>
+    <td>Permit number of applicant</td>
   </tr>
   <tr>
     <td>status</td>
     <td>text</td>
-    <td>??</td>
-    <td>??</td>
+    <td>APPROVED</td>
+    <td>Status of application</td>
   </tr>
+  
   <tr>
     <td>fooditems</td>
     <td>text</td>
-    <td>??</td>
-    <td>??</td>
+    <td>Filipino Food</td>
+    <td>Description of food served</td>
   </tr>
   <tr>
     <td>x</td>
     <td>number</td>
-    <td>??</td>
-    <td>??</td>
+    <td>6009812.085</td>
+    <td>X Coordinate</td>
   </tr>
   <tr>
     <td>y</td>
     <td>number</td>
-    <td>??</td>
-    <td>??</td>
+    <td>2112361.07</td>
+    <td>Y Coordinate</td>
   </tr>
   <tr>
     <td>lattitude</td>
     <td>number</td>
-    <td>??</td>
-    <td>??</td>
+    <td>37.7806943774082</td>
+    <td>Lattitude Coordinate</td>
   </tr>
   <tr>
     <td>longitude</td>
     <td>number</td>
-    <td>??</td>
-    <td>??</td>
+    <td>-122.409668813219</td>
+    <td>Longitude Coordinate</td>
   </tr>
   <tr>
     <td>schedule</td>
@@ -188,44 +208,16 @@ http://localhost:3306/
   <tr>
     <td>dayshours</td>
     <td>text</td>
-    <td>??</td>
-    <td>??</td>
+    <td>Fr:11AM-3PM</td>
+    <td>Hours of Operation</td>
   </tr>
-  <tr>
-    <td>noisent</td>
-    <td>floating_timestamp</td>
-    <td>??</td>
-    <td>??</td>
-  </tr>
-  <tr>
-    <td>approved</td>
-    <td>floating_timestamp</td>
-    <td>??</td>
-    <td>??</td>
-  </tr>
-  <tr>
-    <td>recieved</td>
-    <td>text</td>
-    <td>??</td>
-    <td>??</td>
-  </tr>
-  <tr>
-    <td>priorpermit</td>
-    <td>number</td>
-    <td>??</td>
-    <td>??</td>
-  </tr>
-  <tr>
-    <td>expirationdate</td>
-    <td>floating_timestamp</td>
-    <td>??</td>
-    <td>??</td>
-  </tr>
+
+
   <tr>
     <td>location</td>
     <td>point</td>
-    <td>??</td>
-    <td>??</td>
+    <td>POINT (-122.409668813219 37.7806943774082)</td>
+    <td>Location variable to find Food Truck based off longitude and latitude</td>
   </tr>
 </tbody>
 </table>

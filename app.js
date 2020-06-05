@@ -4,11 +4,7 @@ dotenv.config();
 //Set rest of Variables:
 const express = require("express");
 const cors = require('cors');
-const Sigsci = require('sigsci-module-nodejs');
-const sigsci = new Sigsci({ path: '/tmp/sigsci.sock' });
-
 const app = express();
-if (process.env.SigSci !== "local") {app.use(sigsci.express())} //Check if .env has SigSci = dev as we don't want to login to sigsci on local
 const web_port = process.env.PORT;
 const morgan = require("morgan");
 
