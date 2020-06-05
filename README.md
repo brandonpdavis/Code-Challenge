@@ -90,6 +90,12 @@ npm start
 Now you should be able to load the app via:
 http://localhost:3306/
 
+## How it Works
+There are two input boxes on the page. The first is a look up that leverages [Azure Maps](https://atlas.microsoft.com/). It is an autocomplete look up leveraging jQuery. Upon selecting it feeds longitude and latitude coordinates to two hidden fields (tech debt). The next field is hitting the data provided by the City an County of San Francisco. It is taking the input value and querying against the `fooditems` field. When you click search it takes all of that data and builds a new map.
+
+## Future Improvements/Ideas
+- Given the time and resources, you could add more filtering fields agaisnt what is avaiable from the San Francisco data set such as days of operation or permit status. I provided a quick cheat list of fields as well as a link to detailed documentation. 
+
 
 ## API Documentation 
 
