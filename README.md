@@ -30,19 +30,18 @@ npm -v
 
 <h4>Installing Homebrew</h4>
 Open terminal and type the following
-```sh
+```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 To ensure it succesfully installed and to check the version, type the following command:
-```sh
+```
 brew -v
 ```
-```sh
+```
 brew install node
-
 ```
 Verify node installed and check the version, type the following command:
-```sh
+```
 node -v
 npm -v
 ```
