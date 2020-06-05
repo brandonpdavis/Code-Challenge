@@ -4,7 +4,7 @@ This is a sample project that allows end users to search for food trucks in a gi
 ## Global Dependencies and Setup
 These steps are necessary to get started regardless of local setup
 
-- Create an account or login to [DataSF][https://data.sfgov.org/login]
+- Create an account or login to [DataSF](https://data.sfgov.org/login)
 - When logged in go to the <a href="https://data.sfgov.org/profile/edit/developer_settings" target="_blank">Developer Settings</a> page and click the 'Create new API Key' button
 - Name your key
 - Copy your Key ID and update the `DataSFKey` variable in the .env file
@@ -28,7 +28,7 @@ npm -v
 - [node.js](https://nodejs.org)
 - [Homebrew](https://brew.sh) (optional but I recommend using brew because it keeps the latest version of node available.)
 
-<h4>Installing Homebrew<h4>
+<h4>Installing Homebrew</h4>
 Open terminal and type the following
 ```sh
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
