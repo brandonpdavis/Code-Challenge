@@ -1,6 +1,6 @@
 <html>
    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />
    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.25/daterangepicker.css" />
@@ -11,7 +11,12 @@
    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script> 
    <style>
+       .box{padding:5px;display:block;height:40px;}
+       .labelBox{width:40%;float:left;font-weight: bold;}
+       .searchInput{width:50%;float:left;margin-right:10px}
        #ui-id-1{left:21px!important;}
+       .searchBtn{float:right;margin-right:50px;}
+
       html,
       body {
       width: 100%;
@@ -44,14 +49,14 @@
       }
       #search > .search-input-box {
       background: #fff;
-      height: 72px;
+      height: 183px;
       width: 100%;
       }
       #search > .search-input-box > .search-input-group {
       position: relative;
       top: 20px;
       left: 20px;
-      width: 358px;
+      width: 60%;
       height: 30px;
       margin: 0;
       padding: 0;
@@ -163,14 +168,223 @@
       <div id="map"></div>
       <div id="search">
          <div class="search-input-box">
-            <div class="search-input-group">
-               <div class="search-icon" type="button"></div>
-               <input class="participantSuggest" placeholder="" name="personId" id="personId"/>
-            </div>
+            <div class="box">
+                <div class="labelBox">Where Are You?: </div>
+                <input id="Address" class="searchInput"/>
+             </div>
+             <div class="box" style="display:none;">
+                <div class="labelBox">Longitude: </div>
+                <input id="long" class="searchInput"/>
+             </div>
+             <div class="box" style="display:none;">
+                <div class="labelBox">Latitude: </div>
+                <input id="lat" class="searchInput"/>
+             </div>
+             <div class="box">
+                <div class="labelBox">What Sounds Good?: </div>
+                <input id="food" class="searchInput"/>
+             </div>
+             <br/><button class="btn btn-primary searchBtn" onclick="search();">Search</button>
          </div>
          <ul id="results-panel"></ul>
       </div>
       <script>
+          function search(){
+              //map.clear();
+            var datasource, popup;
+
+            var long = $("#long").val();
+            var lat = $("#lat").val();
+            lat = Number(lat)
+            long = Number(long)
+
+
+         //URL to custom endpoint to fetch Access token
+         var url = 'https://adtokens.azurewebsites.net/api/HttpTrigger1?code=dv9Xz4tZQthdufbocOV9RLaaUhQoegXQJSeQQckm6DZyG/1ymppSoQ==';
+         
+         //Define an HTML template for a custom popup content laypout.
+         var popupTemplate = '<div class="customInfobox"><div class="name">{name}</div><div class="hours"><b>Address: </b>{address}</div><div class="hours"><b>Days/Hours: </b>{hours}</div><div>{description}</div></div>';
+         
+         //Initialize a map instance.
+         var map = new atlas.Map('map', {
+         center: [long, lat],
+                     zoom: 13,
+                     view: 'Auto',
+         //Add your Azure Maps subscription client ID to the map SDK. Get an Azure Maps client ID at https://azure.com/maps
+         authOptions: {
+                         authType: 'subscriptionKey',
+                         subscriptionKey: '_2n6WxrvMMWCqghzuGcU0QQfuo25zQUIbNb46zg2eJw'
+                     }
+         });
+         
+         //Wait until the map resources are ready.
+         map.events.add('ready', function () {
+         
+         //Create a data source and add it to the map.
+         datasource = new atlas.source.DataSource(null, {
+         cluster: false
+         });
+         map.sources.add(datasource);
+         var food = $("#food").val();
+            var apiURL = "https://data.sfgov.org/resource/rqzj-sfat.json?$where=fooditems like %27%25$QUERY%25%27";
+            apiURL = apiURL.replace('$QUERY', food);
+            $.ajax({
+            url: apiURL,
+            type: "GET",
+            headers: {
+                "accept": "application/json;odata=verbose",
+            },
+            success: function (data) {
+                var dataArray =[]
+             data.forEach(function(e, i, array) {
+                 var longitude = e.longitude;
+                 var latitude = e.latitude;
+                 var name = e.applicant;
+                 var hours = e.dayshours;
+                 var address = e.address;
+                 var description = e.fooditems
+                 var point = new atlas.data.Feature(new atlas.data.Point([longitude, latitude]), {
+                         name: name,
+                         hours: hours,
+                         address: address,
+                         description: description
+                     });
+                     dataArray.push(point)
+             });
+             datasource.add(dataArray)
+
+
+            },
+            error: function (error) {
+                console.log('error on eventTime() ' + error);
+            }
+        });
+         
+         
+         //Add a layer for rendering point data as symbols.
+         var symbolLayer = new atlas.layer.SymbolLayer(datasource, null, {
+         iconOptions: {
+           image: 'pin-red'
+         }
+         });
+         map.layers.add(symbolLayer);
+         
+         //Create a popup but leave it closed so we can update it and display it later.
+         popup = new atlas.Popup({
+         pixelOffset: [0, -18]
+         });
+         
+         //Add a click event to the symbol layer.
+         map.events.add('click', symbolLayer, symbolClicked);
+         });
+         
+         function symbolClicked(e) {
+         //Make sure the event occured on a point feature.
+         if (e.shapes && e.shapes.length > 0) {
+         var content, coordinate;
+         
+         //Check to see if the first value in the shapes array is a Point Shape.
+         if (e.shapes[0] instanceof atlas.Shape && e.shapes[0].getType() === 'Point') {
+           var properties = e.shapes[0].getProperties();
+           var hours = properties.hours;
+           if(hours == undefined){
+               hours = "Unknown"
+           }
+           content = popupTemplate.replace(/{name}/g, properties.name).replace(/{description}/g, properties.description).replace(/{hours}/g, hours).replace(/{address}/g, properties.address);
+           coordinate = e.shapes[0].getCoordinates();
+         } else if (e.shapes[0].type === 'Feature' && e.shapes[0].geometry.type === 'Point') {
+         
+           //Check to see if the feature is a cluster.
+           if (e.shapes[0].properties.cluster) {
+             content = '<div style="padding:10px;">Cluster of ' + e.shapes[0].properties.point_count + ' symbols</div>';
+           } else {
+             //Feature is likely from a VectorTileSource.
+             content = popupTemplate.replace(/{name}/g, properties.name).replace(/{description}/g, properties.description).replace(/{hours}/g, hours).replace(/{address}/g, properties.address);
+           }
+         
+           coordinate = e.shapes[0].geometry.coordinates;
+         }
+         
+         if (content && coordinate) {
+           //Populate the popupTemplate with data from the clicked point feature.
+           popup.setOptions({
+             //Update the content of the popup.
+             content: content,
+         
+             //Update the position of the popup with the symbols coordinate.
+             position: coordinate
+           });
+         
+           //Open the popup.
+           popup.open(map);
+         }
+         }
+         }
+         
+         $('#Address').on('input', function (e) {
+             $("#Address").autocomplete({
+                 html:  true,
+                 delay: 1000,
+                 source: function (request, response) {
+                    // Suggest URL
+                    //where=fooditems%20like%20%27%25hot%20dog%25%27
+                    //where=fooditems like `%25ITEM GOES HERE%25`
+                    var suggestURL = "https://atlas.microsoft.com/search/address/json?api-version=1&query=#LOCATION&subscription-key=_2n6WxrvMMWCqghzuGcU0QQfuo25zQUIbNb46zg2eJw";
+                    suggestURL = suggestURL.replace('#LOCATION', request.term);
+                    // JSONP Request
+                    $.ajax({
+                       method: 'GET',
+                       dataType: 'json',
+                       jsonpCallback: 'jsonCallback',
+                       url: suggestURL,
+                       success: function(data){/*console.log('ajax success')*/},
+                       error: function(){console.log('ajax failed')}
+                    })
+                         .done(function(data){
+                             
+                             $("#Address").on('keyup', function (e) {
+
+         });
+                             response( $.map( data.results, function ( item ) {
+                                 return {
+                                     html: true,
+                                     label: item.address.freeformAddress,
+                                     value: item.address.freeformAddress,
+                                     longitude: item.position.lon,
+                                     latitude: item.position.lat
+         
+                                 };
+                             }));
+                         })   
+                     },
+                     select: function (event, ui) {
+                     var test = ui.item.label;
+                     var longitude = ui.item.longitude;
+                     var latitude =  ui.item.latitude;
+                        $("#long").val(longitude);
+                        $("#lat").val(latitude);
+                     }
+                 }); 
+             });// end on Input   */
+         //Create three point features on the map and add some metadata in the properties which we will want to display in a popup.
+         //   var point1 = new atlas.data.Feature(new atlas.data.Point([-122.33, 47.64]), {
+         //     name: 'Point 1 Title',
+         //     description: 'This is the description 1.'
+         //   });
+         
+         //   var point2 = new atlas.data.Feature(new atlas.data.Point([-122.335, 47.645]), {
+         //     name: 'Point 2 Title',
+         //     description: 'This is the description 2.'
+         //   });
+         
+         //   var point3 = new atlas.data.Feature(new atlas.data.Point([-122.325, 47.635]), {
+         //     name: 'Point 3 Title',
+         //     description: 'This is the description 3.'
+         //   });
+         
+         //Add the symbol to the data source.
+         //datasource.add([point1, point2, point3]);
+          }
          var datasource, popup;
          
          //URL to custom endpoint to fetch Access token
@@ -262,16 +476,16 @@
          }
          }
          
-         $('input.participantSuggest').on('input', function (e) {
-             $(".participantSuggest").autocomplete({
+         $('#Address').on('input', function (e) {
+             $("#Address").autocomplete({
                  html:  true,
                  delay: 1000,
                  source: function (request, response) {
                     // Suggest URL
                     //where=fooditems%20like%20%27%25hot%20dog%25%27
                     //where=fooditems like `%25ITEM GOES HERE%25`
-                    var suggestURL = "https://data.sfgov.org/resource/rqzj-sfat.json?$where=fooditems like %27%25$QUERY%25%27";
-                    suggestURL = suggestURL.replace('$QUERY', request.term);
+                    var suggestURL = "https://atlas.microsoft.com/search/address/json?api-version=1&query=#LOCATION&subscription-key=_2n6WxrvMMWCqghzuGcU0QQfuo25zQUIbNb46zg2eJw";
+                    suggestURL = suggestURL.replace('#LOCATION', request.term);
                     // JSONP Request
                     $.ajax({
                        method: 'GET',
@@ -283,42 +497,16 @@
                     })
                          .done(function(data){
                              
-                             $(".participantSuggest").on('keyup', function (e) {
-         if (e.keyCode === 13) {
-             //console.table(data)
-             var dataArray =[]
-             data.forEach(function(e, i, array) {
-                 var longitude = e.longitude;
-                 var latitude = e.latitude;
-                 var name = e.applicant;
-                 var hours = e.dayshours;
-                 var address = e.address;
-                 var description = e.fooditems
-                 var point = new atlas.data.Feature(new atlas.data.Point([longitude, latitude]), {
-                         name: name,
-                         hours: hours,
-                         address: address,
-                         description: description
-                     });
-                     dataArray.push(point)
-             });
-             datasource.add(dataArray)
-             $("#ui-id-1").hide();
-         
-         }
+                             $("#Address").on('keyup', function (e) {
+
          });
-                             response( $.map( data, function ( item ) {
+                             response( $.map( data.results, function ( item ) {
                                  return {
                                      html: true,
-                                     label: item.applicant+" - "+item.address,
-                                     value: item.applicant,
-                                     title: item.applicant,
-                                     longitude: item.longitude,
-                                     latitude: item.latitude,
-                                     locationdesc: item.locationdescription,
-                                     dayshours: item.dayshours,
-                                     address: item.address,
-                                     description: item.fooditems
+                                     label: item.address.freeformAddress,
+                                     value: item.address.freeformAddress,
+                                     longitude: item.position.lon,
+                                     latitude: item.position.lat
          
                                  };
                              }));
@@ -326,22 +514,13 @@
                      },
                      select: function (event, ui) {
                      var test = ui.item.label;
-                     var title =  ui.item.title;
                      var longitude = ui.item.longitude;
                      var latitude =  ui.item.latitude;
-                     var address = ui.item.address;
-                     var hours = ui.item.dayshours;
-                     var description = ui.item.description;
-                     var point1 = new atlas.data.Feature(new atlas.data.Point([longitude, latitude]), {
-                         name: title,
-                         hours: hours,
-                         address: address,
-                         description: description
-                     });
-                     datasource.add([point1])
+                        $("#long").val(longitude);
+                        $("#lat").val(latitude);
                      }
                  }); 
-             });// end on Input   */
+             });// end on Input   */// end on Input   */
          //Create three point features on the map and add some metadata in the properties which we will want to display in a popup.
          //   var point1 = new atlas.data.Feature(new atlas.data.Point([-122.33, 47.64]), {
          //     name: 'Point 1 Title',
