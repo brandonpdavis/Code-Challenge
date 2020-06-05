@@ -1,9 +1,78 @@
-<h2> Getting Started </h2>
+## Getting Started 
+This is a sample project that allows end users to search for food trucks in a given area.
+
+## Global Dependencies and Setup
+These steps are necessary to get started regardless of local setup
+
+- Create an account or login to [DataSF][https://data.sfgov.org/login]
+- When logged in go to the <a href="https://data.sfgov.org/profile/edit/developer_settings" target="_blank">Developer Settings</a> page and click the 'Create new API Key' button
+- Name your key
+- Copy your Key ID and update the `DataSFKey` variable in the .env file
+- Copy your Key Secret and update the `DataSFSecret` variable in the .env file
+- In your .env file set the `PORT` variable to `3306` (You can set it to whatever port, but this port number useful for future use of mySQL)
+
+## Setup Local Environment (Windows)
+## Dependencies
+- [node.js](https://nodejs.org)
+
+Node.js and npm can be installed from a download link. Go to the <a href="https://nodejs.org/en/download/" target="_blank">Node installation page</a>, and download the Node installer.
+Once it's done, you can test to see both node and npm functioning by opening PowerShell (or any shell) and typing:
+```sh
+node -v
+npm -v
+```
+
+## Setup Local Environment (Mac)
+## Dependencies
+
+- [node.js](https://nodejs.org)
+- [Homebrew](https://brew.sh) (optional but I recommend using brew because it keeps the latest version of node available.)
+
+<h4>Installing Homebrew<h4>
+Open terminal and type the following
+```sh
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+To ensure it succesfully installed and to check the version, type the following command:
+```sh
+brew -v
+```
+```sh
+brew install node
+
+```
+Verify node installed and check the version, type the following command:
+```sh
+node -v
+npm -v
+```
+<h4>Clone repo and start your local environment<h4>
+Clone this repository into a new folder on your local machine, then:
+
+```
+cd repo-name
+
+npm init
+
+npm install
+```
+
+Terminal 1 Run - `npm start`
+
+(if nodemon is not installed, run this to install it): `npm install -g nodemon`
+
+```
+nodemon app.js
+```
+
+Now you should be able to load the app via:
+http://localhost:3306/
+
 
 <h2> API Documentation </h2>
-<a target="_blank" href="https://dev.socrata.com/foundry/data.sfgov.org/rqzj-sfat">Detailed Documentation</a>
 
 <h3>Quick Reference Guide</h3>
+<a target="_blank" href="https://dev.socrata.com/foundry/data.sfgov.org/rqzj-sfat">Detailed Documentation</a>
 <b>Endpoint: </b> https://data.sfgov.org/resource/rqzj-sfat.json
 <h4>Field Names</h4>
 <table style="width: 100%;">
