@@ -14,7 +14,8 @@ These steps are necessary to get started regardless of local setup
 - Copy your Key Secret and update the `DataSFSecret` variable in the .env file
 - In your .env file set the `PORT` variable to `3306` (You can set it to whatever port, but this port number useful for future use of mySQL)
 
-# Azure Map Setup
+# Azure Maps Setup
+( [Click Here](https://docs.microsoft.com/en-us/azure/azure-maps/) for more detailed documentation on Azure Maps.)
 - In the upper left-hand corner of the Azure portal, click Create a resource.
 - In the Search the Marketplace box, type Maps.
 - From the Results, select Maps. Click Create button that appears below the map.

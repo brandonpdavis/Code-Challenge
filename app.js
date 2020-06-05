@@ -25,10 +25,11 @@ app.get("/", function(req, res) {
 //EXAMPLE:
 // let variablenameRoute = require('path to js file for route')
 const baseAPI = require('./routes/api/foodData/food.js');
-
+const mapsAPI = require('./routes/api/maps/maps.js');
 //EXAMPLE
 //app.use('/whatever you want the url to be BEFORE PARAMETERS', variable name for route)
-app.use('/foodws/base/', baseAPI);
+app.use('/food', baseAPI);
+app.use('/maps', mapsAPI);
 
 app.listen(web_port, function() {
   console.log("app.js Server listening on " + web_port);

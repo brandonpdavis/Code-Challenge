@@ -226,7 +226,7 @@
          });
          map.sources.add(datasource);
          var food = $("#food").val();
-            var apiURL = "https://data.sfgov.org/resource/rqzj-sfat.json?$where=fooditems like %27%25$QUERY%25%27";
+            var apiURL = "/food/ws/$QUERY";
             apiURL = apiURL.replace('$QUERY', food);
             $.ajax({
             url: apiURL,
@@ -329,7 +329,7 @@
                     // Suggest URL
                     //where=fooditems%20like%20%27%25hot%20dog%25%27
                     //where=fooditems like `%25ITEM GOES HERE%25`
-                    var suggestURL = "https://atlas.microsoft.com/search/address/json?api-version=1&query=#LOCATION&subscription-key=_2n6WxrvMMWCqghzuGcU0QQfuo25zQUIbNb46zg2eJw";
+                    var suggestURL = "/maps/#LOCATION";
                     suggestURL = suggestURL.replace('#LOCATION', request.term);
                     // JSONP Request
                     $.ajax({
@@ -484,7 +484,7 @@
                     // Suggest URL
                     //where=fooditems%20like%20%27%25hot%20dog%25%27
                     //where=fooditems like `%25ITEM GOES HERE%25`
-                    var suggestURL = "https://atlas.microsoft.com/search/address/json?api-version=1&query=#LOCATION&subscription-key=_2n6WxrvMMWCqghzuGcU0QQfuo25zQUIbNb46zg2eJw";
+                    var suggestURL = "/maps/#LOCATION";
                     suggestURL = suggestURL.replace('#LOCATION', request.term);
                     // JSONP Request
                     $.ajax({
