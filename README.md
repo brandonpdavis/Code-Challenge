@@ -28,8 +28,9 @@ npm -v
 - [node.js](https://nodejs.org)
 - [Homebrew](https://brew.sh) (optional but I recommend using brew because it keeps the latest version of node available.)
 
-<h4>Installing Homebrew</h4>
-Open terminal and type the following
+# Installing Homebrew
+Open terminal and type the following:
+
 ```
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
