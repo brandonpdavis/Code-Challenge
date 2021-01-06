@@ -14,7 +14,7 @@
   "dependencies": {
     "akamai-gen-edgerc": "^1.0.1",
     "aws-sdk": "^2.557.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "console.table": "^0.10.0",
     "cors": "^2.8.5",
